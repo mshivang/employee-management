@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>Add User</h1>
+<form [formGroup]="addUserForm" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>User Name</mat-label>
+    <input
+      matInput
+      maxlength="40"
+      placeholder="User Name"
+      formControlName="username"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      maxlength="40"
+      placeholder="Email"
+      formControlName="email"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      type="password"
+      maxlength="40"
+      placeholder="Password"
+      formControlName="password1"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Confirm Password</mat-label>
+    <input
+      matInput
+      type="password"
+      maxlength="40"
+      placeholder="Confirm Password"
+      formControlName="password2"
+    />
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+  <button type="button" mat-button (click)="onNoClick()">Cancel</button>
+  <button
+    [mat-dialog-close]="addUserForm.value"
+    mat-raised-button
+    color="primary"
+  >
+    Save
+  </button>
+</div>

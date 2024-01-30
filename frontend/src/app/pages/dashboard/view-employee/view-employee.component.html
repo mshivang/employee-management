@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>View Employee</h1>
+
+<section class="space-y-2" mat-dialog-content>
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">Employee Name</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.fullName }}</p>
+  </div>
+
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">Aadhar</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.aadhar }}</p>
+  </div>
+
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">PAN</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.pan }}</p>
+  </div>
+
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">Phone</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.phone }}</p>
+  </div>
+
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">Alternative Phone</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.altPhone }}</p>
+  </div>
+
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">Current Address</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.currAddress }}</p>
+  </div>
+
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">Permanent Address</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.permAddress }}</p>
+  </div>
+
+  <div *ngIf="data.department !== null" role="listitem">
+    <p class="text-base font-bold text-gray-900">Department</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.department.name }}</p>
+  </div>
+
+  <div *ngIf="data.manager !== null" role="listitem">
+    <p class="text-base font-bold text-gray-900">Manager</p>
+    <p class="text-sm font-normal">{{ data.manager.fullName }}</p>
+  </div>
+</section>
+
+<div mat-dialog-actions>
+  <button type="button" mat-button (click)="onNoClick()">Close</button>
+</div>

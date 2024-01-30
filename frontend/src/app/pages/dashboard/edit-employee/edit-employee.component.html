@@ -1,0 +1,105 @@
+<h1 mat-dialog-title>Edit Employee</h1>
+<form [formGroup]="editEmployeeForm" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Employee Name</mat-label>
+    <input
+      matInput
+      maxlength="40"
+      placeholder="Employee Name"
+      formControlName="fullName"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Aadhar</mat-label>
+    <input
+      matInput
+      maxlength="40"
+      placeholder="Aadhar"
+      formControlName="aadhar"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>PAN</mat-label>
+    <input matInput maxlength="40" placeholder="PAN" formControlName="pan" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Phone</mat-label>
+    <input
+      matInput
+      maxlength="40"
+      placeholder="Phone"
+      formControlName="phone"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Alternative Phone</mat-label>
+    <input
+      matInput
+      maxlength="40"
+      placeholder="Alternative Phone"
+      formControlName="altPhone"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Current Address</mat-label>
+    <input
+      matInput
+      maxlength="40"
+      placeholder="Current Address"
+      formControlName="currAddress"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Permanent Address</mat-label>
+    <input
+      matInput
+      maxlength="40"
+      placeholder="Permanent Address"
+      formControlName="permAddress"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Department</mat-label>
+    <mat-select formControlName="department">
+      @for (department of deaprtments | async; track department) {
+      <mat-option [value]="department.id">{{ department.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Manger</mat-label>
+    <mat-select formControlName="manager">
+      @for (employee of employees | async; track employee) {
+      <mat-option [value]="employee.eid">{{ employee.fullName }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>User Id</mat-label>
+    <mat-select formControlName="user">
+      @for (user of users | async; track user) {
+      <mat-option [value]="user.id">{{ user.username }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+  <button type="button" mat-button (click)="onNoClick()">Cancel</button>
+  <button
+    [mat-dialog-close]="editEmployeeForm.value"
+    mat-raised-button
+    color="primary"
+  >
+    Save
+  </button>
+</div>

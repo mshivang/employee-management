@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Add Department</h1>
+<form [formGroup]="addDepartmentForm" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Department Name</mat-label>
+    <input
+      matInput
+      maxlength="100"
+      placeholder="Department Name"
+      formControlName="name"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input
+      matInput
+      maxlength="500"
+      placeholder="Description"
+      formControlName="desc"
+    />
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+  <button type="button" mat-button (click)="onNoClick()">Cancel</button>
+  <button
+    [mat-dialog-close]="addDepartmentForm.value"
+    mat-raised-button
+    color="primary"
+  >
+    Save
+  </button>
+</div>

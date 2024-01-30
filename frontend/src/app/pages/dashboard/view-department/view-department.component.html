@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>View Department</h1>
+
+<section class="space-y-2" mat-dialog-content>
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">Department Name</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.name }}</p>
+  </div>
+
+  <div role="listitem">
+    <p class="text-base font-bold text-gray-900">Description</p>
+    <p class="text-sm text-gray-500 font-normal">{{ data.desc }}</p>
+  </div>
+</section>
+
+<div mat-dialog-actions>
+  <button type="button" mat-button (click)="onNoClick()">Close</button>
+</div>
