@@ -9,6 +9,8 @@ import {
   EmployeesFetchedResponse,
 } from '../../domain/entities';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +19,7 @@ export class EmployeeService {
 
   fetchEmployees$(): Observable<EmployeesFetchedResponse> {
     return this.http.get<EmployeesFetchedResponse>(
-      'http://127.0.0.1:8000/api/employees/',
+      `${environment.baseUrl}/api/employees/`,
       {
         withCredentials: true,
       }
@@ -26,7 +28,7 @@ export class EmployeeService {
 
   addEmployee$(employee: EmployeeBase): Observable<EmployeeAddedResponse> {
     return this.http.post<EmployeeAddedResponse>(
-      'http://127.0.0.1:8000/api/employees/',
+      `${environment.baseUrl}/api/employees/`,
       employee,
       {
         withCredentials: true,
@@ -39,7 +41,7 @@ export class EmployeeService {
     employee: EmployeeBase
   ): Observable<EmployeeUpdatedResponse> {
     return this.http.patch<EmployeeUpdatedResponse>(
-      `http://127.0.0.1:8000/api/employees/${id}`,
+      `${environment.baseUrl}/api/employees/${id}`,
       employee,
       {
         withCredentials: true,
@@ -49,7 +51,7 @@ export class EmployeeService {
 
   deleteEmployee$(id: string): Observable<EmployeeDeletedResponse> {
     return this.http.delete<EmployeeDeletedResponse>(
-      `http://127.0.0.1:8000/api/employees/${id}`,
+      `${environment.baseUrl}/api/employees/${id}`,
       {
         withCredentials: true,
       }

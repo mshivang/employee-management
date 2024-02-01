@@ -8,10 +8,10 @@ import {
   UserAddedResponse,
   UserBase,
   UserDeletedResponse,
-  UserUpdatedResponse,
   UsersFetchedResponse,
 } from '../../domain/entities';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,7 @@ export class UserService {
 
   loginUser$(params: LoginParams): Observable<LoginUserResponse> {
     return this.http.post<LoginUserResponse>(
-      'http://127.0.0.1:8000/dj-rest-auth/login/',
+      `${environment.baseUrl}/dj-rest-auth/login/`,
       params,
       {
         withCredentials: true,
@@ -48,7 +48,7 @@ export class UserService {
 
   fetchUsers$(): Observable<UsersFetchedResponse> {
     return this.http.get<UsersFetchedResponse>(
-      'http://127.0.0.1:8000/api/users/',
+      `${environment.baseUrl}/api/users/`,
       {
         withCredentials: true,
       }
@@ -57,7 +57,7 @@ export class UserService {
 
   registerUser$(user: UserBase): Observable<UserAddedResponse> {
     return this.http.post<UserAddedResponse>(
-      'http://127.0.0.1:8000/dj-rest-auth/registration/',
+      `${environment.baseUrl}/dj-rest-auth/registration/`,
       user,
       {
         withCredentials: true,
@@ -67,7 +67,7 @@ export class UserService {
 
   deleteUser$(id: number): Observable<UserDeletedResponse> {
     return this.http.delete<UserDeletedResponse>(
-      `http://127.0.0.1:8000/api/users/${id}`,
+      `${environment.baseUrl}/api/users/${id}`,
       {
         withCredentials: true,
       }
@@ -76,7 +76,7 @@ export class UserService {
 
   refreshToken$(): Observable<RefreshTokenResponce> {
     return this.http.post<RefreshTokenResponce>(
-      `http://127.0.0.1:8000/dj-rest-auth/token/refresh/`,
+      `${environment.baseUrl}/dj-rest-auth/token/refresh/`,
       {},
       {
         withCredentials: true,

@@ -5,7 +5,10 @@ from dotenv import load_dotenv
 # Load environment variables from .env.local only in development mode
 if os.environ.get('DJANGO_ENV') == 'development':
     env_file = Path(__file__).resolve().parent / '../.env.local'
-    load_dotenv(env_file)
+else:
+    env_file = Path(__file__).resolve().parent / '../.env'
+
+load_dotenv(env_file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,11 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_ENV') == 'development'
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-    "localhost"
+    "localhost",
+    'emsdjango.azurewebsites.net'
 ]
 
 # Application definition
@@ -121,6 +125,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+    "https://emsdjango.azurewebsites.net"
 ]
 
 CORS_ALLOW_CREDENTIALS = True

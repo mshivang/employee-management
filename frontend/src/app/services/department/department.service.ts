@@ -9,6 +9,8 @@ import {
   MyDepartmentFetchResponse,
 } from '../../domain/entities';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +19,7 @@ export class DepartmentService {
 
   fetchDepartments$(): Observable<DepartmentsFetchedResponse> {
     return this.http.get<DepartmentsFetchedResponse>(
-      'http://127.0.0.1:8000/api/departments/',
+      `${environment.baseUrl}/api/departments/`,
       {
         withCredentials: true,
       }
@@ -28,7 +30,7 @@ export class DepartmentService {
     department: DepartmentBase
   ): Observable<DepartmentAddedResponse> {
     return this.http.post<DepartmentAddedResponse>(
-      'http://127.0.0.1:8000/api/departments/',
+      `${environment.baseUrl}/api/departments/`,
       department,
       {
         withCredentials: true,
@@ -41,17 +43,17 @@ export class DepartmentService {
     department: DepartmentBase
   ): Observable<DepartmentAddedResponse> {
     return this.http.patch<DepartmentAddedResponse>(
-      `http://127.0.0.1:8000/api/departments/${id}`,
+      `${environment.baseUrl}/api/departments/${id}`,
       department,
       {
         withCredentials: true,
       }
-    )
+    );
   }
 
   deleteDepartment$(id: string): Observable<DepartmentDeletedResponse> {
     return this.http.delete<DepartmentDeletedResponse>(
-      `http://127.0.0.1:8000/api/departments/${id}`,
+      `${environment.baseUrl}/api/departments/${id}`,
       {
         withCredentials: true,
       }
@@ -60,7 +62,7 @@ export class DepartmentService {
 
   fetchMyDepartment$(): Observable<MyDepartmentFetchResponse> {
     return this.http.get<MyDepartmentFetchResponse>(
-      `http://127.0.0.1:8000/api/mydepartment`,
+      `${environment.baseUrl}/api/mydepartment/`,
       {
         withCredentials: true,
       }
