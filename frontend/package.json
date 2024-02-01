@@ -1,6 +1,9 @@
 {
   "name": "frontend",
   "version": "0.0.0",
+  "resolutions": {
+    "**/@azure/msal-node": "2.3.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
