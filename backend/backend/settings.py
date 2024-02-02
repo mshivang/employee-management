@@ -26,7 +26,9 @@ DEBUG = os.environ.get('DJANGO_ENV') == 'development'
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    'emsdjango.azurewebsites.net'
+    'emsdjango.azurewebsites.net',
+    'witty-plant-0ad410210.4.azurestaticapps.net',
+    '*.azurestaticapps.net'
 ]
 
 # Application definition
@@ -125,7 +127,8 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
-    "https://emsdjango.azurewebsites.net"
+    "https://witty-plant-0ad410210.4.azurestaticapps.net",
+    "https://*.azurestaticapps.net"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
