@@ -7,6 +7,17 @@ pipeline {
         pollSCM '*/5 * * * *'
     }
 
+    environment {
+        POSTGRES_DB = credentials('jenkins-postgres-db')
+        POSTGRES_USER = credentials('jenkins-postgres-user') 
+        POSTGRES_PASSWORD = credentials('jenkins-postgres-password')
+        POSTGRES_HOST = credentials('jenkins-postgres-host')
+        POSTGRES_PORT = credentials('jenkins-postgres-port')
+        DJANGO_SECRET_KEY = credentials('jenkins-django-secret-key')
+        
+        NODE_DEPARTMENT_API = credentials('jenkins-node-department-api')
+    }
+
     stages {
         stage('Building') {
             steps {
