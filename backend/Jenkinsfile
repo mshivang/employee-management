@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3'
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount Docker socket for Docker in Docker
         }
     }
 
@@ -16,25 +17,16 @@ pipeline {
         POSTGRES_HOST = credentials('jenkins-postgres-host')
         POSTGRES_PORT = credentials('jenkins-postgres-port')
         DJANGO_SECRET_KEY = credentials('jenkins-django-secret-key')
-        
         NODE_DEPARTMENT_API = credentials('jenkins-node-department-api')
     }
 
     stages {
-        stage('Install Docker') {
-            steps {
-                echo 'Installing Docker...'
-                sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-                sh 'sh get-docker.sh'
-            }
-        }
-        
         stage('Start Postgres') {
             steps {
                 echo 'Starting Postgres...'
                 script {
                     docker.withRegistry('') {
-                        docker.image('postgres:latest').run('-e POSTGRES_DB=$POSTGRES_DB -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT -d')
+                        docker.image('postgres:latest').run("-e POSTGRES_DB=$POSTGRES_DB -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT -d --name postgres-container")
                     }
                 }
             }
@@ -76,6 +68,7 @@ pipeline {
                 script {
                     docker.withRegistry('') {
                         docker.image('postgres:latest').stop()
+                        docker.image('postgres:latest').remove()
                     }
                 }
             }
