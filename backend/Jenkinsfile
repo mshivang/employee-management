@@ -47,7 +47,11 @@ pipeline {
         stage('Deploying') {
             steps {
                 echo 'Deploying...'
-                // Add deployment steps here
+                sh '''
+                    cd backend
+                    docker build -t emsdjango.azurecr.io/emsdjango:latest .
+                    docker push emsdjango.azurecr.io/emsdjango:latest
+                '''
             }
         }
     }
