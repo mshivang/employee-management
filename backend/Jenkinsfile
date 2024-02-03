@@ -23,6 +23,8 @@ pipeline {
             steps {
                 echo 'Testing...'
                 sh '''
+                    . ./env/bin/activate
+                    cd backend
                     python3 manage.py test
                 '''
             }
