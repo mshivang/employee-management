@@ -2,6 +2,8 @@ pipeline {
     agent {
         docker {
             image 'python:3'
+            registryUrl 'https://registry.hub.docker.com'
+            registryCredentialsId 'docker-hub-credentials'
         }
     }
 
