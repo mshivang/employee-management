@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        docker { image 'python:3' }
+        docker {
+            image 'python:3'
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount Docker socket for Docker in Docker
+        }
     }
 
     triggers {
@@ -19,6 +22,17 @@ pipeline {
     }
 
     stages {
+        stage('Start Postgres') {
+            steps {
+                echo 'Starting Postgres...'
+                script {
+                    docker.withRegistry('') {
+                        docker.image('postgres:latest').run('-e POSTGRES_DB=$POSTGRES_DB -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT -d')
+                    }
+                }
+            }
+        }
+
         stage('Building') {
             steps {
                 echo 'Building...'
@@ -30,6 +44,7 @@ pipeline {
                 '''
             }
         }
+
         stage('Testing') {
             steps {
                 echo 'Testing...'
@@ -40,9 +55,22 @@ pipeline {
                 '''
             }
         }
+
         stage('Deploying') {
             steps {
                 echo 'Deploying...'
+                // Add deployment steps here
+            }
+        }
+
+        stage('Stop Postgres') {
+            steps {
+                echo 'Stopping Postgres...'
+                script {
+                    docker.withRegistry('') {
+                        docker.image('postgres:latest').stop()
+                    }
+                }
             }
         }
     }
