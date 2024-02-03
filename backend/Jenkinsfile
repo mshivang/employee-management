@@ -38,7 +38,7 @@ pipeline {
             steps {
                 echo 'Setting up PostgreSQL...'
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', credentials('docker-hub-credentials')) {
+                    docker.withRegistry('https://registry.hub.docker.com', credentials('docker-hub-credentials', dockerContext: 'desktop-linux *')) {
                         def postgresContainer = docker.image('postgres').run('-p ${POSTGRES_PORT}:5432 -e POSTGRES_DB=${POSTGRES_DB} -e POSTGRES_USER=${POSTGRES_USER} -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD}')
                         echo 'Waiting for PostgreSQL to start...'
                         postgresContainer.waitForLog('database system is ready to accept connections', 300)
