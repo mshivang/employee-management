@@ -32,12 +32,26 @@ pipeline {
             }
         }
 
+        stage('Setup PostgreSQL') {
+            steps {
+                echo 'Setting up PostgreSQL...'
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        def postgresContainer = docker.image('postgres').run('-p ${POSTGRES_PORT}:5432 -e POSTGRES_DB=${POSTGRES_DB} -e POSTGRES_USER=${POSTGRES_USER} -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD}')
+                        echo 'Waiting for PostgreSQL to start...'
+                        postgresContainer.waitForLog('database system is ready to accept connections', 300)
+                    }
+                }
+            }
+        }
+
         stage('Testing') {
             steps {
                 echo 'Testing...'
                 sh '''
                     cd backend
                     . ./env/bin/activate
+                    python3 manage.py migrate
                     python3 manage.py test
                 '''
             }
