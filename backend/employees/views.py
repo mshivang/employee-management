@@ -216,3 +216,31 @@ class EmployeeDetail(generics.GenericAPIView):
         #Returns response to client
         return Response({"status": "success", "message": f"Employee with Id {pk} deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
+class CurrentEmployee(generics.GenericAPIView):
+    serializer_class = EmployeeSerializer
+
+    '''
+        Endpoint: /api/employees/me
+        Method: DELETE
+        Description: Delete a employee from database.
+    '''
+    def get(self, request):
+         #Authorize User
+        user = self.request.user
+
+        if type(user) == AnonymousUser:
+            return Response({
+            "status": "fail",
+            "message": "Unauthorized"
+        }, 401)
+
+        # Retrieves employee from database.
+        employee = Employee.objects.get(user=user)
+
+        # Returns error response if employee not found.
+        if employee == None:
+            return Response({"status": "fail", "message": f"Employee with Id: {user.id} not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Seriialize employee data.
+        serializer = self.serializer_class(employee)
+        return Response({"status": "success", "employee": serializer.data})

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {
   LoginParams,
   LoginUserResponse,
+  ProfileFetchedResponse,
   RefreshTokenResponce,
   User,
   UserAddedResponse,
@@ -55,6 +56,15 @@ export class UserService {
     );
   }
 
+  fetchMyProfile$(): Observable<ProfileFetchedResponse> {
+    return this.http.get<ProfileFetchedResponse>(
+      `${environment.baseUrl}/api/employees/me`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   registerUser$(user: UserBase): Observable<UserAddedResponse> {
     return this.http.post<UserAddedResponse>(
       `${environment.baseUrl}/dj-rest-auth/registration/`,
@@ -81,6 +91,14 @@ export class UserService {
       {
         withCredentials: true,
       }
+    );
+  }
+
+  resetPassword$(email: string): Observable<{ detail: string }> {
+    return this.http.post<{ detail: string }>(
+      `${environment.baseUrl}/dj-rest-auth/password/reset/`,
+      { email },
+      { withCredentials: true }
     );
   }
 }

@@ -14,7 +14,7 @@
 
       <!-- Right column container with form -->
       <div class="md:w-8/12 lg:ml-6 lg:w-5/12">
-        <form [formGroup]="loginForm" (submit)="onSubmit()" class="space-y-4">
+        <form (submit)="onSubmit()" class="space-y-4">
           <h3 class="text-xl font-bold">Login To EAS</h3>
           <div class="">
             <!-- Username input -->
@@ -25,9 +25,16 @@
                 matInput
                 maxlength="40"
                 placeholder="Username"
-                formControlName="username"
+                [formControl]="userNameControl"
                 class="w-full"
               />
+
+              @if (userNameControl.hasError('min') &&
+              !userNameControl.hasError('required')) {
+              <mat-error>Username must have minimum 2 characters</mat-error>
+              } @if (userNameControl.hasError('required')) {
+              <mat-error>Username is <strong>required</strong></mat-error>
+              }
             </mat-form-field>
 
             <!-- Password input -->
@@ -38,9 +45,16 @@
                 matInput
                 maxlength="20"
                 placeholder="Password"
-                formControlName="password"
+                [formControl]="passwordControl"
                 class="w-full"
               />
+
+              @if (passwordControl.hasError('pattern') &&
+              !passwordControl.hasError('required')) {
+              <mat-error>Password must have minimum 8 characters</mat-error>
+              } @if (passwordControl.hasError('required')) {
+              <mat-error>Password is <strong>required</strong></mat-error>
+              }
             </mat-form-field>
 
             <!-- Remember me checkbox -->
@@ -60,7 +74,12 @@
           </div>
 
           <!-- Submit button -->
-          <button class="w-full" mat-raised-button color="primary">
+          <button
+            [disabled]="passwordControl.invalid || userNameControl.invalid"
+            class="w-full"
+            mat-raised-button
+            color="primary"
+          >
             Sign in
           </button>
 

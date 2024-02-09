@@ -4,9 +4,9 @@ import { UserService } from '../../services';
 import { User } from '../../domain/entities';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { ManageEmployeesComponent } from './manage-employees/manage-employees.component';
-import { ManageDepartmentsComponent } from './manage-departments/manage-departments.component';
-import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { ManageEmployeesComponent } from '../../components/dashboard/manage-employees/manage-employees.component';
+import { ManageDepartmentsComponent } from '../../components/dashboard/manage-departments/manage-departments.component';
+import { ManageUsersComponent } from '../../components/dashboard/manage-users/manage-users.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
           if (!data.is_superuser) {
             this.router.navigate(['my-department']);
           }
-          
+
           this.user = data;
         }
       });

@@ -3,10 +3,10 @@ import { Department } from './department.entity';
 import { User } from './user.entity';
 
 export interface EmployeeBase {
-  user: number | User | null;
+  user: User | null | number;
+  fullName: string;
   email: string;
   password: string;
-  fullName: string;
   phone: string;
   altPhone: string;
   aadhar: string;

@@ -12,6 +12,8 @@ import { EditDepartmentComponent } from '../edit-department/edit-department.comp
 import { AddDepartmentComponent } from '../add-department/add-department.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-manage-departments',
@@ -22,6 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   templateUrl: './manage-departments.component.html',
   styleUrl: './manage-departments.component.css',
@@ -61,6 +65,11 @@ export class ManageDepartmentsComponent implements OnInit, AfterViewInit {
     this.departmentService.fetchDepartments$().subscribe((val) => {
       this.dataSource.data = val.departments;
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   addDepartment(): void {

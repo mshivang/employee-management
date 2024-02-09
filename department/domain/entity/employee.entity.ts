@@ -1,7 +1,10 @@
 import { BaseResponse } from './base-response.entity';
+import { Department } from './department.entity';
+import { User } from './user.entity';
 
 export interface EmployeeBase {
-  uid: string;
+  user: User | null;
+  password: string;
   fullName: string;
   phone: string;
   altPhone: string;
@@ -9,8 +12,8 @@ export interface EmployeeBase {
   pan: string;
   currAddress: string;
   permAddress: string;
-  department_id: string | null;
-  manager_id: string | null;
+  department: Department | null;
+  manager: User | null;
 }
 
 export interface Employee extends EmployeeBase {

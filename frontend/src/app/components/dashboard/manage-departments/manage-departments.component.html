@@ -5,6 +5,17 @@
       Add +
     </button>
   </div>
+
+  <mat-form-field class="w-full">
+    <mat-label>Search Department</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. Engineering"
+      #input
+    />
+  </mat-form-field>
+
   <table
     mat-table
     [dataSource]="dataSource"

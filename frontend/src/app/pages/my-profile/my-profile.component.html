@@ -1,0 +1,72 @@
+<section
+  *ngIf="employee$ | async as user"
+  class="container p-10 mx-auto space-y-10"
+>
+  <h1 class="font-bold text-3xl">Employee Details</h1>
+
+  <div
+    class="gap-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+  >
+    <div class="space-y-4">
+      <h3 class="font-bold text-lg">User Details</h3>
+      <div class="space-y-2">
+        <div class="">
+          <strong>Full Name</strong>
+          <p>{{ user.fullName }}</p>
+        </div>
+
+        <div *ngIf="user.manager" class="">
+          <strong>Manager</strong>
+          <p>{{ user.manager.fullName }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h3 class="font-bold text-lg">Document Details</h3>
+      <div class="space-y-2">
+        <div class="">
+          <strong>Aadhar</strong>
+          <p>{{ user.aadhar }}</p>
+        </div>
+
+        <div class="">
+          <strong>Pan</strong>
+          <p>{{ user.pan }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h3 class="font-bold text-lg">Contact Details</h3>
+      <div class="space-y-2">
+        <div class="">
+          <strong>Phone Number</strong>
+          <p>{{ user.phone }}</p>
+        </div>
+
+        <div class="">
+          <strong>Alternate Phone</strong>
+          <p>{{ user.altPhone }}</p>
+        </div>
+
+        <div class="">
+          <strong>Current Address</strong>
+          <p>{{ user.currAddress }}</p>
+        </div>
+
+        <div class="">
+          <strong>Permenent Address</strong>
+          <p>{{ user.permAddress }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="user.manager" class="p-6 bg-gray-100 w-full">
+    <p>
+      For any correction please contact you manager
+      {{ user.manager.fullName }} ({{ user.manager.phone }})
+    </p>
+  </div>
+</section>

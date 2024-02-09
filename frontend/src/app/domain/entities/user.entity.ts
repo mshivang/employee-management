@@ -1,4 +1,5 @@
 import { BaseResponse } from './base-response.entity';
+import { Employee } from './employee.entity';
 
 export interface UserBase {
   username: string;
@@ -31,6 +32,10 @@ export interface LoginUserResponse extends BaseResponse {
 
 export interface UsersFetchedResponse extends BaseResponse {
   users: User[];
+}
+
+export interface ProfileFetchedResponse extends BaseResponse {
+  employee: Employee;
 }
 
 export interface UserAddedResponse extends BaseResponse {

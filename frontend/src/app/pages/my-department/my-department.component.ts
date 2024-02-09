@@ -9,8 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ViewEmployeeComponent } from '../dashboard/view-employee/view-employee.component';
+import { ViewEmployeeComponent } from '../../components/dashboard/view-employee/view-employee.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-my-department',
@@ -21,6 +23,8 @@ import { MatDialog } from '@angular/material/dialog';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   templateUrl: './my-department.component.html',
   styleUrl: './my-department.component.css',
@@ -42,7 +46,13 @@ export class MyDepartmentComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject<void>();
 
-  displayedColumns: string[] = ['eid', 'fullName', 'manager'];
+  displayedColumns: string[] = [
+    'eid',
+    'fullName',
+    'phoneNumber',
+    'altPhone',
+    'manager',
+  ];
   dataSource = new MatTableDataSource<Employee>([]);
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -70,6 +80,11 @@ export class MyDepartmentComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnInit(): void {

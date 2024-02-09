@@ -3,6 +3,17 @@
     <h5>Manage Users</h5>
     <button (click)="addUser()" mat-raised-button color="primary">Add +</button>
   </div>
+
+    <mat-form-field class="w-full">
+    <mat-label>Search User</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. Shivang Mishra or shivangm"
+      #input
+    />
+  </mat-form-field>
+
   <table
     mat-table
     [dataSource]="dataSource"

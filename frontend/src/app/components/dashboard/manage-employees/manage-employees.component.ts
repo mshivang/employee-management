@@ -12,7 +12,8 @@ import { EditEmployeeComponent } from '../edit-employee/edit-employee.component'
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ResponseStatus } from '../../../domain/enums';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-manage-employees',
@@ -23,6 +24,8 @@ import { ResponseStatus } from '../../../domain/enums';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   templateUrl: './manage-employees.component.html',
   styleUrl: './manage-employees.component.css',
@@ -68,6 +71,11 @@ export class ManageEmployeesComponent implements OnInit, AfterViewInit {
     this.employeeService.fetchEmployees$().subscribe((val) => {
       this.dataSource.data = val.employees;
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   addEmployee(): void {
